@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+"http://struts.apache.org/dtds/struts-2.3.dtd">
+<!-- strutsの決まり文句 最初の宣言の前にはコメントやスペースを入れることもNG-->
+
+
+<!-- Strutsの詳細設定 actionファイルのあるのパッケージを指定-->
+	<struts>
+		<constant name="struts.devMode" value="true"/>
+		<package name="com.internousdev.ecsite2.action" extends="struts-default">
+
+<!-- 各actionを記述 <action>と<result>のセット
+		<action name="アクション名" class="ファイルの場所" method="呼び出されるメソッド名">
+		<result name="戻り値(errorやsuccess 小文字)">呼び出すJSPファイル名.jsp</result>
+		</action>
+-->
+		<action name="GoHomeAction" class="com.internousdev.ecsite2.action.GoHomeAction" method="execute">
+		<result name="success">home.jsp</result>
+		</action>
+
+		<action name="HomeAction" class="com.internousdev.ecsite2.action.HomeAction" method="execute">
+		<result name="login">login.jsp</result>
+		<result name="success">buyItem.jsp</result>
+		</action>
+<!-- home.jspの『商品購入』ボタンor userCreate.jspの『前画面に戻る場合は』から -->
+		<action name="LoginAction" class="com.internousdev.ecsite2.action.LoginAction" method="execute">
+<!-- sessionの『キー名』に『login_user_id』があればsuccess→購入画面へ-->
+		<result name="success">buyItem.jsp</result>
+<!-- sessionの『キー名』に『login_user_id』が無ければerror→ログイン画面へ -->
+		<result name="error">login.jsp</result>
+		</action>
+
+		<action name="UserCreateAction" class="com.internousdev.ecsite2.action.UserCreateAction" method="execute">
+		<result name="success">userCreate.jsp</result>
+		</action>
+
+		<action name="UserCreateConfirmAction" class="com.internousdev.ecsite2.action.UserCreateConfirmAction" method="execute">
+		<result name="success">userCreateConfirm.jsp</result>
+<!-- 新規登録の際、入力情報空白でerrorに -->
+		<result name="error">userCreate.jsp</result>
+		</action>
+
+		<action name="UserCreateCompleteAction" class="com.internousdev.ecsite2.action.UserCreateCompleteAction" method="execute">
+		<result name="success">userCreateComplete.jsp</result>
+		</action>
+
+		<action name="BuyItemAction" class="com.internousdev.ecsite2.action.BuyItemAction" method="execute">
+		<result name="success">buyItemConfirm.jsp</result>
+<!-- 無条件SUCCESSなのでerrorは使われてない -->
+		<result name="error">buyItem.jsp</result>
+		</action>
+
+		<action name="BuyItemConfirmAction" class="com.internousdev.ecsite2.action.BuyItemConfirmAction" method="execute">
+		<result name="success">buyItemComplete.jsp</result>
+<!-- 無条件SUCCESSなのでbackは使われてない -->
+		<result name="back">buyItem.jsp</result>
+		</action>
+
+		<action name="MyPageAction" class="com.internousdev.ecsite2.action.MyPageAction" method="execute">
+		<result name="success">myPage.jsp</result>
+		<result name="error">home.jsp</result>
+		</action>
+
+		<action name="LogoutAction" class="com.internousdev.ecsite2.action.LogoutAction" method="execute">
+		<result name="success">home.jsp</result>
+		</action>
+
+		</package>
+	</struts>
